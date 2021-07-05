@@ -9,12 +9,13 @@ $warning-color: #da0f41;
 * {
   margin: 0;
   padding: 0;
-  color: $primary-color;
+  box-sizing: border-box;
 }
 
 body {
   font-family: "Nunito", sans-serif;
   background: #fafafa;
+  color: $primary-color;
 }
 
 a {
@@ -31,6 +32,9 @@ button,
   font-weight: 600;
   cursor: pointer;
   display: inline-block;
+  font: inherit;
+  margin: 20px 0;
+  transition: all .3s linear;
 }
 
 button:hover,
@@ -48,8 +52,8 @@ button:disabled {
 
 /* forms */
 form {
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 600px;
+  margin: 20px auto;
   padding: 30px;
   border-radius: 8px;
   box-shadow: 1px 2px 3px rgba(50, 50, 50, 0.05);
@@ -59,14 +63,14 @@ form {
 
 input,
 textarea {
+  font: inherit;
   border: 0;
   border-bottom: 1px solid $secondary-color;
   padding: 10px;
   outline: none;
   display: block;
   width: 100%;
-  box-sizing: border-box;
-  margin: 20px auto;
+  margin: 30px auto;
 }
 
 /* error text */
