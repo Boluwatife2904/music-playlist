@@ -20,6 +20,7 @@ body {
 
 a {
   text-decoration: none;
+  color: $primary-color;
 }
 
 /* buttons */
@@ -29,11 +30,11 @@ button,
   border-radius: 8px;
   border: 0;
   padding: 8px 12px;
-  font-weight: 600;
   cursor: pointer;
   display: inline-block;
   font: inherit;
   margin: 20px 0;
+  // font-weight: 600;
   transition: all .3s linear;
 }
 

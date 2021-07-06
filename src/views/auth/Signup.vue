@@ -28,6 +28,7 @@
         <span v-else>Sign up</span>
       </button>
       <div class="error" v-if="error">{{ error }}</div>
+      <p>Already have an account? <router-link to="/login">Login</router-link></p>
     </form>
   </div>
 </template>

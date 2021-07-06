@@ -21,16 +21,19 @@
         <span v-else>Log in</span>
       </button>
       <div class="error" v-if="error">{{ error }}</div>
+      <p>Don't have an account? <router-link to="/signup">Sign up</router-link></p>
     </form>
   </div>
 </template>
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import loginAction from "@/composables/loginAction.js";
 
 export default {
   setup() {
+    const router = useRouter();
     const email = ref("");
     const password = ref("");
     const formIsInvalid = ref(false);
@@ -54,6 +57,7 @@ export default {
       await login(email.value, password.value);
       if(!error.value) {
         console.log("User signed in successfully");
+        router.push({ name: "Home"});
         email.value = "";
         password.value = "";
       }
