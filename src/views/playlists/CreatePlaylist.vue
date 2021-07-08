@@ -26,24 +26,33 @@
       @change="handleFileChanges"
     />
     <div class="error" v-if="fileError">{{ fileError }}</div>
-    <button>Create Playlist</button>
+    <button :disabled="isLoading">
+      <span v-if="isLoading">Creating Playlist...</span>
+      <span v-else>Create Playlist</span> 
+    </button>
   </form>
 </template>
 
 <script>
 import { ref } from "vue";
 import useStorage from "@/composables/useStorage";
+import useCollection from "@/composables/useCollection";
+import getUser from "@/composables/getCurrentUser";
+import { timestamp } from "@/firebase/config";
 
 export default {
   name: "CreatePlaylist",
   setup() {
+    const { user } = getUser();
+    const { error, addDocument } = useCollection("playlists");
+    const { url, filePath, uploadImage } = useStorage();
     const title = ref("");
     const description = ref("");
     const coverImage = ref(null);
     const fileError = ref(null);
-    const { url, filePath, uploadImage } = useStorage();
+    const isLoading = ref(false);
 
-    const allowedImagesFormats = ["image/jpeg", "image/png"];
+    const allowedImagesFormats = ["image/jpeg", "image/png", "image/webp"];
 
     const handleFileChanges = (event) => {
       const selectedImage = event.target.files[0];
@@ -58,13 +67,26 @@ export default {
 
     const createPlaylist = async () => {
       if (coverImage.value) {
+        isLoading.value = true;
         await uploadImage(coverImage.value);
-        console.log("Image uploaded:", url.value);
-        // console.log(title.value, description.value, coverImage.value);
+        await addDocument({
+          title: title.value,
+          description: description.value,
+          coverImage: url.value,
+          userId: user.value.uid,
+          username: user.value.displayName,
+          filePath: filePath.value,
+          songs: [],
+          createdAt: timestamp(),
+        });
+        if (!error.value) {
+          console.log("Playlist successfully added");
+          isLoading.value = false;
+        }
       }
     };
 
-    return { title, description, createPlaylist, handleFileChanges, fileError };
+    return { title, description, createPlaylist, handleFileChanges, fileError, isLoading };
   },
 };
 </script>
