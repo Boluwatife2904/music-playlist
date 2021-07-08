@@ -32,6 +32,8 @@
 
 <script>
 import { ref } from "vue";
+import useStorage from "@/composables/useStorage";
+
 export default {
   name: "CreatePlaylist",
   setup() {
@@ -39,6 +41,7 @@ export default {
     const description = ref("");
     const coverImage = ref(null);
     const fileError = ref(null);
+    const { url, filePath, uploadImage } = useStorage();
 
     const allowedImagesFormats = ["image/jpeg", "image/png"];
 
@@ -53,9 +56,11 @@ export default {
       }
     };
 
-    const createPlaylist = () => {
+    const createPlaylist = async () => {
       if (coverImage.value) {
-        console.log(title.value, description.value, coverImage.value);
+        await uploadImage(coverImage.value);
+        console.log("Image uploaded:", url.value);
+        // console.log(title.value, description.value, coverImage.value);
       }
     };
 
