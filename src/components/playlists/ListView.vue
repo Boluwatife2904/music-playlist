@@ -1,14 +1,21 @@
 <template>
   <div v-for="playlist in playlists" :key="playlist.id">
-    <router-link to="/" class="playlist">
+    <router-link
+      :to="{ name: 'PlaylistDetails', params: { playlistId: playlist.id } }"
+      class="playlist"
+    >
       <div class="playlist-thumbnail">
-        <img :src="playlist.coverImage" :alt="playlist.coverImage" class="playlist-cover" />
+        <img
+          :src="playlist.coverImage"
+          :alt="playlist.coverImage"
+          class="playlist-cover"
+        />
       </div>
       <div class="playlist-information">
-       <h3 class="playlist-title">{{ playlist.title }}</h3>
-       <p class="playlist-description">{{ playlist.description }}</p>
-       <p class="playlist-creator">Created by {{ playlist.username }}</p>
-       <p class="playlist-songs">{{ playlist.songs.length }} songs</p> 
+        <h3 class="playlist-title">{{ playlist.title }}</h3>
+        <p class="playlist-description">{{ playlist.description }}</p>
+        <p class="playlist-creator">Created by {{ playlist.username }}</p>
+        <p class="playlist-songs">{{ playlist.songs.length }} songs</p>
       </div>
     </router-link>
   </div>
@@ -33,7 +40,7 @@ export default {
   border-radius: 10px;
   margin: 16px 0;
   background: #fff;
-  transition: all .3s linear;
+  transition: all 0.3s linear;
 
   .playlist-thumbnail {
     width: 150px;
@@ -63,7 +70,7 @@ export default {
   }
 
   &:hover {
-    box-shadow: 1px 3px 5px rgba(50,50,50,0.05);
+    box-shadow: 1px 3px 5px rgba(50, 50, 50, 0.05);
     transform: scale(1.02);
   }
 
