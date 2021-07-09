@@ -9,8 +9,9 @@ const useCollection = (collection) => {
     isLoading.value = true;
     error.value = null;
     try {
-      await projectFirestore.collection(collection).add(document);
+      const response = await projectFirestore.collection(collection).add(document);
       isLoading.value = false;
+      return response;
     } catch (err) {
       error.value = err.message;
     }

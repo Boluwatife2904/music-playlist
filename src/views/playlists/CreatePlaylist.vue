@@ -28,14 +28,14 @@
     <div class="error" v-if="fileError">{{ fileError }}</div>
     <button :disabled="isLoading">
       <span v-if="isLoading">Creating Playlist...</span>
-      <span v-else>Create Playlist</span> 
+      <span v-else>Create Playlist</span>
     </button>
   </form>
 </template>
 
 <script>
 import { ref } from "vue";
-import { useRouter } from "vue-router"
+import { useRouter } from "vue-router";
 import useStorage from "@/composables/useStorage";
 import useCollection from "@/composables/useCollection";
 import getUser from "@/composables/getCurrentUser";
@@ -71,7 +71,7 @@ export default {
       if (coverImage.value) {
         isLoading.value = true;
         await uploadImage(coverImage.value);
-        await addDocument({
+        const response = await addDocument({
           title: title.value,
           description: description.value,
           coverImage: url.value,
@@ -82,14 +82,23 @@ export default {
           createdAt: timestamp(),
         });
         if (!error.value) {
-          console.log("Playlist successfully added");
           isLoading.value = false;
-          router.push({ name: "Home"});
+          router.push({
+            name: "PlaylistDetails",
+            params: { playlistId: response.id },
+          });
         }
       }
     };
 
-    return { title, description, createPlaylist, handleFileChanges, fileError, isLoading };
+    return {
+      title,
+      description,
+      createPlaylist,
+      handleFileChanges,
+      fileError,
+      isLoading,
+    };
   },
 };
 </script>
