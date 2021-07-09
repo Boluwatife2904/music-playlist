@@ -12,6 +12,9 @@
           <router-link class="btn" :to="{ name: 'Signup' }">Signup</router-link>
         </li>
         <li class="navigation-item" v-if="user">
+          <router-link :to="{ name: 'CreatePlaylist' }">Add Playlist</router-link>
+        </li>
+        <li class="navigation-item" v-if="user">
           <button @click="logoutUser">Logout</button>
         </li>
       </ul>

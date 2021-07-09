@@ -35,6 +35,7 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router"
 import useStorage from "@/composables/useStorage";
 import useCollection from "@/composables/useCollection";
 import getUser from "@/composables/getCurrentUser";
@@ -43,6 +44,7 @@ import { timestamp } from "@/firebase/config";
 export default {
   name: "CreatePlaylist",
   setup() {
+    const router = useRouter();
     const { user } = getUser();
     const { error, addDocument } = useCollection("playlists");
     const { url, filePath, uploadImage } = useStorage();
@@ -82,6 +84,7 @@ export default {
         if (!error.value) {
           console.log("Playlist successfully added");
           isLoading.value = false;
+          router.push({ name: "Home"});
         }
       }
     };
