@@ -1,5 +1,4 @@
 import { ref, watchEffect } from "vue";
-import { formatDistanceToNow } from "date-fns";
 import { projectFirestore } from "../firebase/config";
 
 const getCollection = (collection) => {
@@ -18,10 +17,7 @@ const getCollection = (collection) => {
       snap.docs.forEach((doc) => {
         doc.data().createdAt && results.push({ ...doc.data(), id: doc.id });
       });
-      documents.value = results.map((document) => {
-        let time = formatDistanceToNow(document.createdAt.toDate());
-        return { ...document, createdAt: time };
-      });
+      documents.value = results;
       error.value = null;
       isLoading.value = false;
     },

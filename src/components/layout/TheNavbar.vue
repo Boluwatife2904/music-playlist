@@ -45,11 +45,11 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  padding: 20px 10px;
   margin-bottom: 60px;
   background: #fff;
 
   nav {
+    padding: 20px 10px;
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
