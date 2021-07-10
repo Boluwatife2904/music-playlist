@@ -32,7 +32,8 @@
 <script>
 import { useRouter } from "vue-router";
 import getDocument from "@/composables/getSingleDocument";
-import useCollection from "@/composables/useCollection"
+import useCollection from "@/composables/useCollection";
+import useStorage from "@/composables/useStorage";
 import getUser from "@/composables/getCurrentUser";
 import { computed } from "vue";
 export default {
@@ -45,6 +46,7 @@ export default {
       document: playlist,
     } = getDocument("playlists", props.playlistId);
     const { deleteDocument } = useCollection("playlists");
+    const { deleteImage } = useStorage();
 
     const { user } = getUser();
 
@@ -54,6 +56,7 @@ export default {
     
     const deletePlaylist = async () => {
       await deleteDocument(props.playlistId);
+      await deleteImage(playlist.value.filePath)
       router.push({ name: 'Home' })
     }
 
