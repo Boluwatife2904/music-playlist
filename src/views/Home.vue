@@ -1,7 +1,6 @@
 <template>
   <div class="home">
-    <h1>Homepage</h1>
-    <div v-if="isLoading">Loading...............</div>
+    <ListViewLoader v-if="isLoading" />
     <div v-else-if="!isLoading && documents.length > 0">
       <ListView :playlists="documents" />
     </div>
@@ -17,8 +16,9 @@
 <script>
 import getCollection from "@/composables/getCollection"
 import ListView from '../components/playlists/ListView.vue';
+import ListViewLoader from '../components/playlists/ListViewLoader.vue';
 export default {
-  components: { ListView },
+  components: { ListView, ListViewLoader },
   name: 'Home',
   setup() {
     const { error, isLoading, documents } = getCollection("playlists");

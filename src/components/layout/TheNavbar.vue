@@ -48,7 +48,7 @@ export default {
 
 <style lang="scss" scoped>
 .navbar {
-  margin-bottom: 60px;
+  margin-bottom: 30px;
   background: #fff;
 
   nav {

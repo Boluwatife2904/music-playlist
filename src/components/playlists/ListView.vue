@@ -14,8 +14,8 @@
       <div class="playlist-information">
         <h3 class="playlist-title">{{ playlist.title }}</h3>
         <p class="playlist-description">{{ playlist.description }}</p>
-        <p class="playlist-creator">Created by {{ playlist.username }}</p>
-        <p class="playlist-songs">{{ playlist.songs.length }} songs</p>
+        <p class="playlist-creator">Author - {{ playlist.username }}</p>
+        <p class="playlist-songs">{{ playlist.songs.length }} items</p>
       </div>
     </router-link>
   </div>
@@ -61,6 +61,7 @@ export default {
     .playlist-title,
     .playlist-description {
       margin-bottom: 10px;
+      line-height: 22px;
     }
 
     .playlist-songs {
