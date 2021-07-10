@@ -18,7 +18,8 @@ const getDocument = (collection, documentId) => {
         error.value = null;
         isLoading.value = false;
       } else {
-        error.value = "The playlist with this id doesn't exist!"
+        error.value = "The playlist with this id doesn't exist!";
+        isLoading.value = false;
       }
     },
     (err) => {

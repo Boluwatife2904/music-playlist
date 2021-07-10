@@ -9,6 +9,13 @@
         <h2>{{ playlist.title }}</h2>
         <p>{{ playlist.description }}</p>
         <p>Created by {{ playlist.username }}</p>
+      <button
+        v-if="hasOwnership"
+        class="delete"
+        @click="deletePlaylist"
+      >
+        Delete
+      </button>
       </div>
     </div>
     <div class="right-column">
@@ -17,23 +24,46 @@
       </div>
     </div>
   </div>
+  <div v-else-if="!isLoading && !playlist">
+    The requested playlist might have been deleted.
+  </div>
 </template>
 
 <script>
+import { useRouter } from "vue-router";
 import getDocument from "@/composables/getSingleDocument";
+import useCollection from "@/composables/useCollection"
+import getUser from "@/composables/getCurrentUser";
+import { computed } from "vue";
 export default {
   props: ["playlistId"],
   setup(props) {
+    const router = useRouter();
     const {
       isLoading,
       error,
       document: playlist,
     } = getDocument("playlists", props.playlistId);
+    const { deleteDocument } = useCollection("playlists");
+
+    const { user } = getUser();
+
+    const hasOwnership = computed(() => {
+      return playlist.value && user.value && playlist.value.userId === user.value.uid;
+    })
+    
+    const deletePlaylist = async () => {
+      await deleteDocument(props.playlistId);
+      router.push({ name: 'Home' })
+    }
 
     return {
       error,
       playlist,
       isLoading,
+      user,
+      hasOwnership,
+      deletePlaylist
     };
   },
 };
