@@ -16,8 +16,16 @@
     </div>
     <div class="right-column">
       <div class="playlist-songs">
-        <p>List of songs in playlist</p>
-        {{ playlist.songs }}
+        <div class="list" v-if="playlist.songs && playlist.songs.length > 0">
+          <div class="song" v-for="song in playlist.songs" :key="song.id">
+            <div class="info">
+              <h3>{{ song.title }}</h3>
+              <p>{{ song.artist }}</p>
+            </div>
+            <button v-if="hasOwnership">Delete</button>
+          </div>
+        </div>
+        <p v-else>No songs have been added to this playlist.</p>
         <AddSong v-if="hasOwnership" :playlist="playlist" />
       </div>
     </div>
@@ -111,6 +119,25 @@ export default {
 
     p {
       line-height: 24px;
+    }
+  }
+}
+
+.list {
+  .song {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ebebeb;
+    padding: 10px 0;
+
+    h3 {
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin: 0;
     }
   }
 }

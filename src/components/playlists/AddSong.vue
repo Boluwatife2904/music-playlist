@@ -1,6 +1,6 @@
 <template>
   <div class="add-song">
-    <form v-if="showForm" @submit.prevent="addNewSong">
+    <form v-if="showForm" @submit.prevent="addNewSong" autocomplete="off">
       <h4>Add Song to Playlist</h4>
       <input
         type="text"
