@@ -9,7 +9,9 @@ const useCollection = (collection) => {
     isLoading.value = true;
     error.value = null;
     try {
-      const response = await projectFirestore.collection(collection).add(document);
+      const response = await projectFirestore
+        .collection(collection)
+        .add(document);
       isLoading.value = false;
       return response;
     } catch (err) {
@@ -18,13 +20,24 @@ const useCollection = (collection) => {
   };
 
   const deleteDocument = async (id) => {
-    await projectFirestore
-      .collection(collection)
-      .doc(id)
-      .delete();
+    const documentRef = await projectFirestore.collection(collection).doc(id);
+    try {
+      await documentRef.delete();
+    } catch (err) {
+      error.value = err.message || "Could not delete playlist";
+    }
   };
 
-  return { error, addDocument, deleteDocument, isLoading };
+  const updateDocument = async (id, updates) => {
+    const documentRef = await projectFirestore.collection(collection).doc(id);
+    try {
+      documentRef.update(updates);
+    } catch (err) {
+      error.value = err.message || "Could not update playlist!";
+    }
+  };
+
+  return { error, addDocument, deleteDocument, updateDocument, isLoading };
 };
 
 export default useCollection;

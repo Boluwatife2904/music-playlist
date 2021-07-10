@@ -9,18 +9,16 @@
         <h2>{{ playlist.title }}</h2>
         <p>{{ playlist.description }}</p>
         <p>Created by {{ playlist.username }}</p>
-      <button
-        v-if="hasOwnership"
-        class="delete"
-        @click="deletePlaylist"
-      >
-        Delete
-      </button>
+        <button v-if="hasOwnership" class="delete" @click="deletePlaylist">
+          Delete
+        </button>
       </div>
     </div>
     <div class="right-column">
       <div class="playlist-songs">
         <p>List of songs in playlist</p>
+        {{ playlist.songs }}
+        <AddSong v-if="hasOwnership" :playlist="playlist" />
       </div>
     </div>
   </div>
@@ -30,13 +28,15 @@
 </template>
 
 <script>
+import { computed } from "vue";
 import { useRouter } from "vue-router";
 import getDocument from "@/composables/getSingleDocument";
 import useCollection from "@/composables/useCollection";
 import useStorage from "@/composables/useStorage";
 import getUser from "@/composables/getCurrentUser";
-import { computed } from "vue";
+import AddSong from "@/components/playlists/AddSong.vue";
 export default {
+  components: { AddSong },
   props: ["playlistId"],
   setup(props) {
     const router = useRouter();
@@ -51,14 +51,16 @@ export default {
     const { user } = getUser();
 
     const hasOwnership = computed(() => {
-      return playlist.value && user.value && playlist.value.userId === user.value.uid;
-    })
-    
+      return (
+        playlist.value && user.value && playlist.value.userId === user.value.uid
+      );
+    });
+
     const deletePlaylist = async () => {
       await deleteDocument(props.playlistId);
-      await deleteImage(playlist.value.filePath)
-      router.push({ name: 'Home' })
-    }
+      await deleteImage(playlist.value.filePath);
+      router.push({ name: "Home" });
+    };
 
     return {
       error,
@@ -66,7 +68,7 @@ export default {
       isLoading,
       user,
       hasOwnership,
-      deletePlaylist
+      deletePlaylist,
     };
   },
 };
@@ -80,6 +82,10 @@ export default {
   .left-column {
     flex: 0 0 400px;
     max-width: 400px;
+  }
+
+  .right-column {
+    flex: 1;
   }
 
   .playlist-cover {
