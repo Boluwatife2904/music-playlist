@@ -1,6 +1,7 @@
 <template>
   <div class="add-song">
     <form v-if="showForm" @submit.prevent="addNewSong" autocomplete="off">
+      <button class="close" type="button" @click="toggleForm">X</button>
       <h4>Add Song to Playlist</h4>
       <input
         type="text"
@@ -71,6 +72,14 @@ export default {
 
   form {
     margin-left: 0;
+    position: relative;
+
+    .close {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      margin: 0;
+    }
   }
 }
 </style>
