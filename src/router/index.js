@@ -18,6 +18,15 @@ const requiresAuthentication = (to, from, next) => {
   }
 }
 
+const requiresNoAuthentication = (to, from, next) => {
+  let user = projectAuth.currentUser;
+  if(user) {
+    next({ name: 'Home' })
+  } else {
+    next();
+  }
+}
+
 const routes = [
   {
     path: '/',
@@ -28,12 +37,14 @@ const routes = [
   {
     path: '/login',
     name: 'Login',
-    component: Login
+    component: Login,
+    beforeEnter: requiresNoAuthentication
   },
   {
     path: '/signup',
     name: 'Signup',
-    component: Signup
+    component: Signup,
+    beforeEnter: requiresNoAuthentication
   },
   {
     path: '/playlists/create',
