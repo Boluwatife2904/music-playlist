@@ -1,7 +1,7 @@
 import { ref, watchEffect } from "vue";
 import { projectFirestore } from "../firebase/config";
 
-const getCollection = (collection) => {
+const getCollection = (collection, query) => {
   const error = ref(null);
   const isLoading = ref(false);
   const documents = ref(null);
@@ -10,6 +10,10 @@ const getCollection = (collection) => {
   let collectionRef = projectFirestore
     .collection(collection)
     .orderBy("createdAt");
+
+  if (query) {
+    collectionRef = collectionRef.where(...query)
+  }
 
   const unsub = collectionRef.onSnapshot(
     (snap) => {
@@ -31,7 +35,7 @@ const getCollection = (collection) => {
   watchEffect((onInvalidate) => {
     // Unsubscribing frm previous collection when component is unmounted
     onInvalidate(() => unsub());
-  })
+  });
 
   return { error, isLoading, documents };
 };

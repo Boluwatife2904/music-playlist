@@ -14,8 +14,8 @@
       <div class="playlist-information">
         <h3 class="playlist-title">{{ playlist.title }}</h3>
         <p class="playlist-description">{{ playlist.description }}</p>
-        <p class="playlist-creator">Author - {{ playlist.username }}</p>
-        <p class="playlist-songs">{{ playlist.songs.length }} items</p>
+        <p class="playlist-creator">Added by {{ playlist.username }}</p>
+        <p class="playlist-songs">{{ playlist.songs.length }} song<span v-if="playlist.songs.length > 1">s</span></p>
       </div>
     </router-link>
   </div>
