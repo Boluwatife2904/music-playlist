@@ -56,10 +56,9 @@ export default {
       }
       await login(email.value, password.value);
       if(!error.value) {
-        console.log("User signed in successfully");
-        router.push({ name: "Home"});
         email.value = "";
         password.value = "";
+        router.push({ name: "UserPlaylists"});
       }
     };
 

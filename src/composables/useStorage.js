@@ -27,7 +27,7 @@ const useStorage = () => {
     try {
       await storageRef.delete()
     } catch(err) {
-      console.log(err)
+      error.value = err.message || "Failed to delete image. Please try again later."
     }
   }
 

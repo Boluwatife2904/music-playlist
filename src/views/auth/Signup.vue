@@ -35,10 +35,12 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import signupAction from "@/composables/signupAction.js";
 
 export default {
   setup() {
+    const router = useRouter();
     const email = ref("");
     const password = ref("");
     const username = ref("");
@@ -65,9 +67,10 @@ export default {
       }
       await signup(email.value, password.value, username.value);
       if(!error.value) {
-        console.log("User signed in successfully");
+        username.value = "";
         email.value = "";
         password.value = "";
+        router.push({ name: "UserPlaylists"});
       }
     };
 

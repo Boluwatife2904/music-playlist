@@ -39,7 +39,6 @@ export default {
     const logoutUser = async () => {
       await logout();
       if (!error.value) {
-        console.log("User signed out successfully");
         router.push({ name: "Login" });
       }
     };
