@@ -1,11 +1,9 @@
-/* custom font */
 @import url("https://fonts.googleapis.com/css2?family=Karla:wght@200;300;400;600;700;800;900&display=swap");
 
 $primary-color: #4f515a;
 $secondary-color: #ebebeb;
 $warning-color: #da0f41;
 
-/* base styles  */
 * {
   margin: 0;
   padding: 0;
@@ -23,7 +21,6 @@ a {
   color: $primary-color;
 }
 
-/* buttons */
 button,
 .btn {
   background: $secondary-color;
@@ -34,7 +31,6 @@ button,
   display: inline-block;
   font: inherit;
   margin: 20px 0;
-  // font-weight: 600;
   transition: all .3s linear;
 }
 
@@ -51,7 +47,6 @@ button:disabled {
   cursor: not-allowed;
 }
 
-/* forms */
 form {
   max-width: 600px;
   margin: 20px auto;
@@ -74,9 +69,14 @@ textarea {
   margin: 30px auto;
 }
 
-/* error text */
 .error {
   color: $warning-color;
   font-size: 14px;
   margin: 16px 0;
+}
+
+p {
+  a {
+    text-decoration: underline;
+  }
 }
