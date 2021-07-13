@@ -68,6 +68,12 @@ export default {
     };
 
     const createPlaylist = async () => {
+      if (title.value === "") {
+        alert("Enter th song title!");
+      }
+      if (description.value === "") {
+        alert("Enter the song description!");
+      }
       if (coverImage.value) {
         isLoading.value = true;
         await uploadImage(coverImage.value);
