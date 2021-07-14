@@ -32,44 +32,67 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home,
-    beforeEnter: requiresAuthentication
+    beforeEnter: requiresAuthentication,
+    meta: {
+      title: "Home || Playlisteer"
+    }
   },
   {
     path: '/login',
     name: 'Login',
     component: Login,
-    beforeEnter: requiresNoAuthentication
+    beforeEnter: requiresNoAuthentication,
+    meta: {
+      title: "Login || Playlisteer"
+    }
   },
   {
     path: '/signup',
     name: 'Signup',
     component: Signup,
-    beforeEnter: requiresNoAuthentication
+    beforeEnter: requiresNoAuthentication,
+    meta: {
+      title: "Signup || Playlisteer"
+    }
   },
   {
     path: '/playlists/create',
     name: 'CreatePlaylist',
     component: CreatePlaylist,
-    beforeEnter: requiresAuthentication
+    beforeEnter: requiresAuthentication,
+    meta: {
+      title: "Create a Playlist || Playlisteer"
+    }
   },
   {
     path: '/playlist/:playlistId',
     name: 'PlaylistDetails',
     component: PlaylistDetails,
     props: true,
-    beforeEnter: requiresAuthentication
+    beforeEnter: requiresAuthentication,
+    meta: {
+      title: "Playlist Info || Playlisteer"
+    }
   },
   {
     path: '/user/playlists',
     name: 'UserPlaylists',
     component: UserPlaylists,
-    beforeEnter: requiresAuthentication
+    beforeEnter: requiresAuthentication,
+    meta: {
+      title: "My Playlists || Playlisteer"
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
+})
+
+router.beforeEach((to, from, next) => {
+  document.title = to.meta.title;
+  next();
 })
 
 export default router
